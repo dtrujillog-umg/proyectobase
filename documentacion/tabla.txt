@@ -1,0 +1,45 @@
+Tablas a utilizar
+
+Cliente
+	id
+	nombres
+	apellidos
+	fecha_nac
+	dpi
+	ctatipo
+	estado
+	saldo
+tipo_cta
+	id
+	cta_tipo
+
+Transacciones
+	cta_id
+	clientenombre
+	clienteapellido
+	fechahora
+	tipo_tran
+	usuarioid
+	idsucursal
+	
+	
+tipo_tran
+	idtran
+	transaccion
+	
+	
+	
+	
+Usuarios
+	usuarioid
+	nombre
+	apellido
+	dpi
+	puesto
+	sucursal
+	estado	
+Sucursal
+	idsucursal
+	nombre
+	Departamento
+	Municipio
