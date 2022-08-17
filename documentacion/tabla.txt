@@ -1,24 +1,25 @@
 Tablas a utilizar
 
 Cliente
-	id
+	cta_id
 	nombres
 	apellidos
 	fecha_nac
 	dpi
 	ctatipo
-	estado
+	id_estado
 	saldo
 tipo_cta
 	id
 	cta_tipo
 
 Transacciones
+	Numero_trans
 	cta_id
 	clientenombre
 	clienteapellido
 	fechahora
-	tipo_tran
+	idtran
 	usuarioid
 	idsucursal
 	
@@ -32,14 +33,19 @@ tipo_tran
 	
 Usuarios
 	usuarioid
+	contraseña
 	nombre
 	apellido
 	dpi
 	puesto
 	sucursal
-	estado	
+	id_estado
+		
 Sucursal
 	idsucursal
 	nombre
 	Departamento
 	Municipio
+estado
+	id_estado
+	estado
