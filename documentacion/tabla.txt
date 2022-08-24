@@ -49,3 +49,15 @@ Sucursal
 estado
 	id_estado
 	estado
+
+
+
+Creacion de consultas
+Select
+
+Inerjoin
+
+Update
+
+delete
+se realizara un update y lo unico que se realizara es el cambio de estado del cliente ya que la eliminacion de datos o de registros es una mala practica en base de datos
