@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class Conexion {
 
     public static Connection getConexion() {
-        String conexionUrl = "jdbc:sqlserver://127.0.0.1:1433;"
+        String conexionUrl = "jdbc:sqlserver://localhost:1433;"
                 + "database=Banco;"
                 + "user = sa;"
                 + "password=Admin1234;"
