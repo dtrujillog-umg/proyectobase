@@ -255,8 +255,18 @@ public class cliente extends javax.swing.JInternalFrame {
         });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
 
@@ -394,10 +404,7 @@ public class cliente extends javax.swing.JInternalFrame {
         int columnas;
         try {
             Connection con = Conexion.getConexion();
-            ps = con.prepareStatement("SELECT          Cliente.cuenta, Cliente.nombres, Cliente.apellido, Cliente.dpi,Cta_tipo.cta_tipo,Estado.estado, Cliente.saldo\n" +
-"FROM            Cliente INNER JOIN\n" +
-"                         Cta_tipo ON Cliente.idcta = Cta_tipo.idcta INNER JOIN\n" +
-"                         Estado ON Cliente.idestado = Estado.idestado");
+            ps = con.prepareStatement("execute consulta_Cliente");
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
             columnas = rsmd.getColumnCount();
@@ -424,7 +431,7 @@ public class cliente extends javax.swing.JInternalFrame {
         
         try{
             int fila = tblClientes.getSelectedRow();
-            int id = Integer.parseInt(tblClientes.getValueAt(fila,0).toString());
+            int id = Integer.parseInt(tblClientes.getValueAt(fila, 0).toString());
             PreparedStatement ps;
             ResultSet rs;
             int valor = id;
@@ -452,6 +459,74 @@ public class cliente extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_tblClientesMouseClicked
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        int fila = tblClientes.getSelectedRow();
+        
+        int id = Integer.parseInt(tblClientes.getValueAt(fila,0).toString());        
+         int valor = id;
+        String nombre = txtNombre.getText();
+        String apellido = txtApellido.getText();
+        String dpi = txtDPI.getText();
+        int idcta = comboTipo.getSelectedIndex();
+        int idestado = comboEstado.getSelectedIndex();
+        String saldo = (txtSaldo.getText());
+        try {
+            Connection con = Conexion.getConexion();
+
+            PreparedStatement ps = con.prepareStatement("EXECUTE update_Cliente ?,?,?,?,?,?,? ");
+           
+            ps.setInt(1, valor);
+            ps.setString(2, nombre);
+            ps.setString(3, apellido);
+            ps.setString(4, dpi);
+            ps.setInt(5, idcta);
+            ps.setInt(6, idestado);
+            ps.setString(7, saldo);
+            ps.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Registro Actualizado Exitosamente");
+            limpiar();
+            cargarTabla();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+         int fila = tblClientes.getSelectedRow();
+        
+        int id = Integer.parseInt(tblClientes.getValueAt(fila,0).toString());        
+         int valor = id;
+        String nombre = txtNombre.getText();
+        String apellido = txtApellido.getText();
+        String dpi = txtDPI.getText();
+        int idcta = comboTipo.getSelectedIndex();
+        int idestado = comboEstado.getSelectedIndex();
+        String saldo = (txtSaldo.getText());
+        try {
+            Connection con = Conexion.getConexion();
+
+            PreparedStatement ps = con.prepareStatement("EXECUTE update_Cliente ?,?,?,?,?,?,? ");
+           
+            ps.setInt(1, valor);
+            ps.setString(2, nombre);
+            ps.setString(3, apellido);
+            ps.setString(4, dpi);
+            ps.setInt(5, idcta);
+            ps.setInt(6, idestado);
+            ps.setString(7, saldo);
+            ps.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Cliente Borrado Exitosamente");
+            limpiar();
+            cargarTabla();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
