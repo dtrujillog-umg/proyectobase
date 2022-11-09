@@ -149,6 +149,11 @@ public class cliente extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblClientes);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Datos del Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
@@ -389,7 +394,10 @@ public class cliente extends javax.swing.JInternalFrame {
         int columnas;
         try {
             Connection con = Conexion.getConexion();
-            ps = con.prepareStatement("EXECUTE consulta_Cliente");
+            ps = con.prepareStatement("SELECT          Cliente.cuenta, Cliente.nombres, Cliente.apellido, Cliente.dpi,Cta_tipo.cta_tipo,Estado.estado, Cliente.saldo\n" +
+"FROM            Cliente INNER JOIN\n" +
+"                         Cta_tipo ON Cliente.idcta = Cta_tipo.idcta INNER JOIN\n" +
+"                         Estado ON Cliente.idestado = Estado.idestado");
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
             columnas = rsmd.getColumnCount();
@@ -411,6 +419,39 @@ public class cliente extends javax.swing.JInternalFrame {
     private void comboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboTipoActionPerformed
+
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+        
+        try{
+            int fila = tblClientes.getSelectedRow();
+            int id = Integer.parseInt(tblClientes.getValueAt(fila,0).toString());
+            PreparedStatement ps;
+            ResultSet rs;
+            int valor = id;
+             Connection con = Conexion.getConexion();
+            ps = con.prepareStatement("select * from Cliente WHERE cuenta = ?");
+            ps.setInt(1,id);
+            rs = ps.executeQuery();
+            while(rs.next()){
+            String.valueOf(id);
+                txtNombre.setText(rs.getString("nombres"));
+                txtApellido.setText(rs.getString("apellido"));
+                txtApellido.setText(rs.getString("apellido"));
+                txtDPI.setText(rs.getString("dpi"));
+                //comboTipo.getSelectedIndex(rs.getString(""));
+               // comboTipo.addItem(rs.getString("idcta"));
+               // comboTipo.getSelectedIndex(rs.getString("idcta"));
+              //  comboEstado.getSelectedIndex();
+                txtSaldo.setText(rs.getString("saldo"));
+                
+
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+        }
+        
+        
+    }//GEN-LAST:event_tblClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
