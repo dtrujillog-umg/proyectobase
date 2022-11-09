@@ -45,6 +45,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         deleteMenuItem = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         item_cliente = new javax.swing.JMenuItem();
+        item_usuario = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -100,6 +101,11 @@ public class menuPrincipal extends javax.swing.JFrame {
         menuBar.add(editMenu);
 
         jMenu1.setText("Mantenimiento");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
         item_cliente.setText("Cliente");
         item_cliente.addActionListener(new java.awt.event.ActionListener() {
@@ -108,6 +114,14 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(item_cliente);
+
+        item_usuario.setText("Usuarios");
+        item_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_usuarioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(item_usuario);
 
         menuBar.add(jMenu1);
 
@@ -161,6 +175,27 @@ public class menuPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_item_clienteActionPerformed
 
+    private void item_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_usuarioActionPerformed
+        String x = Usuario.x;
+        try {
+            if(x==null){
+              
+    Usuario us = new Usuario();
+    desktopPane.add (us);
+    desktopPane.moveToFront(us);
+            }
+            else{ 
+                JOptionPane.showMessageDialog(rootPane, "La ventana Datos del cliente ya esta abierta");
+            }
+         } catch (Exception e) {
+        e.printStackTrace ();
+        }
+    }//GEN-LAST:event_item_usuarioActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -208,6 +243,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuItem item_cliente;
+    private javax.swing.JMenuItem item_usuario;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
