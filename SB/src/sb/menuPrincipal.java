@@ -45,6 +45,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         deleteMenuItem = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         item_cliente = new javax.swing.JMenuItem();
+        itemsucursal = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -109,6 +110,14 @@ public class menuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(item_cliente);
 
+        itemsucursal.setText("Sucursal");
+        itemsucursal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemsucursalActionPerformed(evt);
+            }
+        });
+        jMenu1.add(itemsucursal);
+
         menuBar.add(jMenu1);
 
         helpMenu.setMnemonic('h');
@@ -161,6 +170,25 @@ public class menuPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_item_clienteActionPerformed
 
+    private void itemsucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemsucursalActionPerformed
+        
+        String x = sucursal.x;
+        
+        try {
+            if(x==null){
+            sucursal sucur = new sucursal();
+            desktopPane.add(sucur);
+            desktopPane.moveToFront(sucur);
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "La venta ya esta en uso");
+            }
+            
+        } catch(Exception e){
+        e.printStackTrace();
+        }
+    }//GEN-LAST:event_itemsucursalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -208,6 +236,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuItem item_cliente;
+    private javax.swing.JMenuItem itemsucursal;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
