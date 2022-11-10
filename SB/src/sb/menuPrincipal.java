@@ -40,6 +40,8 @@ public class menuPrincipal extends javax.swing.JFrame {
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         itemdeposito = new javax.swing.JMenuItem();
+        item_retiro = new javax.swing.JMenuItem();
+        item_trancia = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         item_cliente = new javax.swing.JMenuItem();
         itemsucursal = new javax.swing.JMenuItem();
@@ -86,6 +88,22 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
         editMenu.add(itemdeposito);
+
+        item_retiro.setText("Retiro");
+        item_retiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_retiroActionPerformed(evt);
+            }
+        });
+        editMenu.add(item_retiro);
+
+        item_trancia.setText("Transferencia");
+        item_trancia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_tranciaActionPerformed(evt);
+            }
+        });
+        editMenu.add(item_trancia);
 
         menuBar.add(editMenu);
 
@@ -198,6 +216,42 @@ public class menuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_itemdepositoActionPerformed
 
+    private void item_retiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_retiroActionPerformed
+        String x = Retiro.x;
+        
+        try {
+            if(x==null){
+            Retiro reti = new Retiro();
+            desktopPane.add(reti);
+            desktopPane.moveToFront(reti);
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "La venta ya esta en uso");
+            }
+            
+        } catch(Exception e){
+        e.printStackTrace();
+        }
+    }//GEN-LAST:event_item_retiroActionPerformed
+
+    private void item_tranciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_tranciaActionPerformed
+        String x = Transferencia.x;
+        
+        try {
+            if(x==null){
+            Transferencia trancia = new Transferencia();
+            desktopPane.add(trancia);
+            desktopPane.moveToFront(trancia);
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "La venta ya esta en uso");
+            }
+            
+        } catch(Exception e){
+        e.printStackTrace();
+        }
+    }//GEN-LAST:event_item_tranciaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -242,6 +296,8 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuItem item_cliente;
+    private javax.swing.JMenuItem item_retiro;
+    private javax.swing.JMenuItem item_trancia;
     private javax.swing.JMenuItem itemdeposito;
     private javax.swing.JMenuItem itemsucursal;
     private javax.swing.JMenu jMenu1;
