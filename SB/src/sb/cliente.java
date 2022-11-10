@@ -149,6 +149,11 @@ public class cliente extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblClientes);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Datos del Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
@@ -250,8 +255,18 @@ public class cliente extends javax.swing.JInternalFrame {
         });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
 
@@ -389,7 +404,7 @@ public class cliente extends javax.swing.JInternalFrame {
         int columnas;
         try {
             Connection con = Conexion.getConexion();
-            ps = con.prepareStatement("EXECUTE consulta_Cliente");
+            ps = con.prepareStatement("execute consulta_Cliente");
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
             columnas = rsmd.getColumnCount();
@@ -411,6 +426,107 @@ public class cliente extends javax.swing.JInternalFrame {
     private void comboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboTipoActionPerformed
+
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+        
+        try{
+            int fila = tblClientes.getSelectedRow();
+            int id = Integer.parseInt(tblClientes.getValueAt(fila, 0).toString());
+            PreparedStatement ps;
+            ResultSet rs;
+            int valor = id;
+             Connection con = Conexion.getConexion();
+            ps = con.prepareStatement("select * from Cliente WHERE cuenta = ?");
+            ps.setInt(1,id);
+            rs = ps.executeQuery();
+            while(rs.next()){
+            String.valueOf(id);
+                txtNombre.setText(rs.getString("nombres"));
+                txtApellido.setText(rs.getString("apellido"));
+                txtApellido.setText(rs.getString("apellido"));
+                txtDPI.setText(rs.getString("dpi"));
+                //comboTipo.getSelectedIndex(rs.getString(""));
+               // comboTipo.addItem(rs.getString("idcta"));
+               // comboTipo.getSelectedIndex(rs.getString("idcta"));
+              //  comboEstado.getSelectedIndex();
+                txtSaldo.setText(rs.getString("saldo"));
+                
+
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+        }
+        
+        
+    }//GEN-LAST:event_tblClientesMouseClicked
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        int fila = tblClientes.getSelectedRow();
+        
+        int id = Integer.parseInt(tblClientes.getValueAt(fila,0).toString());        
+         int valor = id;
+        String nombre = txtNombre.getText();
+        String apellido = txtApellido.getText();
+        String dpi = txtDPI.getText();
+        int idcta = comboTipo.getSelectedIndex();
+        int idestado = comboEstado.getSelectedIndex();
+        String saldo = (txtSaldo.getText());
+        try {
+            Connection con = Conexion.getConexion();
+
+            PreparedStatement ps = con.prepareStatement("EXECUTE update_Cliente ?,?,?,?,?,?,? ");
+           
+            ps.setInt(1, valor);
+            ps.setString(2, nombre);
+            ps.setString(3, apellido);
+            ps.setString(4, dpi);
+            ps.setInt(5, idcta);
+            ps.setInt(6, idestado);
+            ps.setString(7, saldo);
+            ps.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Registro Actualizado Exitosamente");
+            limpiar();
+            cargarTabla();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+         int fila = tblClientes.getSelectedRow();
+        
+        int id = Integer.parseInt(tblClientes.getValueAt(fila,0).toString());        
+         int valor = id;
+        String nombre = txtNombre.getText();
+        String apellido = txtApellido.getText();
+        String dpi = txtDPI.getText();
+        int idcta = comboTipo.getSelectedIndex();
+        int idestado = comboEstado.getSelectedIndex();
+        String saldo = (txtSaldo.getText());
+        try {
+            Connection con = Conexion.getConexion();
+
+            PreparedStatement ps = con.prepareStatement("EXECUTE update_Cliente ?,?,?,?,?,?,? ");
+           
+            ps.setInt(1, valor);
+            ps.setString(2, nombre);
+            ps.setString(3, apellido);
+            ps.setString(4, dpi);
+            ps.setInt(5, idcta);
+            ps.setInt(6, idestado);
+            ps.setString(7, saldo);
+            ps.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Cliente Borrado Exitosamente");
+            limpiar();
+            cargarTabla();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
