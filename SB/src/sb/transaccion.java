@@ -215,7 +215,7 @@ public class transaccion extends javax.swing.JInternalFrame {
         int cuenta = Integer.parseInt(txtCuenta.getText());
       //  int cliente = Integer.parseInt(txtCliente.getText());
         int monto = Integer.parseInt(txtMonto.getText());
-        int idtran =40000;
+        int idtran =40001;
         int idsucursal = 20001;
         
          try {
