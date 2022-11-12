@@ -155,7 +155,7 @@
                 <Column editable="false" title="Apellido" type="java.lang.String"/>
                 <Column editable="false" title="DPI" type="java.lang.Integer"/>
                 <Column editable="false" title="Cuenta Tipo" type="java.lang.String"/>
-                <Column editable="true" title="Estado" type="java.lang.Integer"/>
+                <Column editable="false" title="Estado" type="java.lang.Integer"/>
                 <Column editable="false" title="Saldo Actual" type="java.lang.Integer"/>
               </Table>
             </Property>
