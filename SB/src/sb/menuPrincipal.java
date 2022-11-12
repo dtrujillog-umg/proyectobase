@@ -18,7 +18,7 @@ public class menuPrincipal extends javax.swing.JFrame {
      */
     public menuPrincipal() {
         initComponents();
-        
+
         setExtendedState(MAXIMIZED_BOTH);
     }
 
@@ -45,6 +45,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         item_cliente = new javax.swing.JMenuItem();
         itemsucursal = new javax.swing.JMenuItem();
+        item_Usuario = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -125,6 +126,14 @@ public class menuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(itemsucursal);
 
+        item_Usuario.setText("Usuarios");
+        item_Usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_UsuarioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(item_Usuario);
+
         menuBar.add(jMenu1);
 
         helpMenu.setMnemonic('h');
@@ -161,96 +170,110 @@ public class menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void item_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_clienteActionPerformed
-       String x = cliente.x;
-        try{
-            if(x==null){
-            cliente clie = new cliente();
-            desktopPane.add(clie);
-            desktopPane.moveToFront(clie);
+        String x = cliente.x;
+        try {
+            if (x == null) {
+                cliente clie = new cliente();
+                desktopPane.add(clie);
+                desktopPane.moveToFront(clie);
+            } else {
+                JOptionPane.showInputDialog(rootPane, "La venta ya esta en uso");
             }
-            else{
-            JOptionPane.showInputDialog(rootPane, "La venta ya esta en uso");
-            }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        
+
         }
     }//GEN-LAST:event_item_clienteActionPerformed
 
     private void itemsucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemsucursalActionPerformed
-        
+
         String x = sucursal.x;
-        
+
         try {
-            if(x==null){
-            sucursal sucur = new sucursal();
-            desktopPane.add(sucur);
-            desktopPane.moveToFront(sucur);
-            }
-            else{
+            if (x == null) {
+                sucursal sucur = new sucursal();
+                desktopPane.add(sucur);
+                desktopPane.moveToFront(sucur);
+            } else {
                 JOptionPane.showMessageDialog(rootPane, "La venta ya esta en uso");
             }
-            
-        } catch(Exception e){
-        e.printStackTrace();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }//GEN-LAST:event_itemsucursalActionPerformed
 
     private void itemdepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemdepositoActionPerformed
-        
+
         String x = transaccion.x;
-        
+
         try {
-            if(x==null){
-            transaccion trans = new transaccion();
-            desktopPane.add(trans);
-            desktopPane.moveToFront(trans);
-            }
-            else{
+            if (x == null) {
+                transaccion trans = new transaccion();
+                desktopPane.add(trans);
+                desktopPane.moveToFront(trans);
+            } else {
                 JOptionPane.showMessageDialog(rootPane, "La venta ya esta en uso");
             }
-            
-        } catch(Exception e){
-        e.printStackTrace();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        
+
     }//GEN-LAST:event_itemdepositoActionPerformed
 
     private void item_retiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_retiroActionPerformed
         String x = Retiro.x;
-        
+
         try {
-            if(x==null){
-            Retiro reti = new Retiro();
-            desktopPane.add(reti);
-            desktopPane.moveToFront(reti);
-            }
-            else{
+            if (x == null) {
+                Retiro reti = new Retiro();
+                desktopPane.add(reti);
+                desktopPane.moveToFront(reti);
+            } else {
                 JOptionPane.showMessageDialog(rootPane, "La venta ya esta en uso");
             }
-            
-        } catch(Exception e){
-        e.printStackTrace();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }//GEN-LAST:event_item_retiroActionPerformed
 
     private void item_tranciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_tranciaActionPerformed
         String x = Transferencia.x;
-        
+
         try {
-            if(x==null){
-            Transferencia trancia = new Transferencia();
-            desktopPane.add(trancia);
-            desktopPane.moveToFront(trancia);
-            }
-            else{
+            if (x == null) {
+                Transferencia trancia = new Transferencia();
+                desktopPane.add(trancia);
+                desktopPane.moveToFront(trancia);
+            } else {
                 JOptionPane.showMessageDialog(rootPane, "La venta ya esta en uso");
             }
-            
-        } catch(Exception e){
-        e.printStackTrace();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }//GEN-LAST:event_item_tranciaActionPerformed
+
+    private void item_UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_UsuarioActionPerformed
+        String x = Usuario.x;
+        try {
+            if (x == null)  {
+                Usuario us = new Usuario();
+                desktopPane.add(us);
+                desktopPane.moveToFront(us);
+               
+                
+            } else {
+               JOptionPane.showMessageDialog(rootPane, "mensaje");
+            
+            }
+        }   catch (Exception e) {
+            e.printStackTrace();
+            
+        }
+    }//GEN-LAST:event_item_UsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -295,6 +318,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenuItem item_Usuario;
     private javax.swing.JMenuItem item_cliente;
     private javax.swing.JMenuItem item_retiro;
     private javax.swing.JMenuItem item_trancia;

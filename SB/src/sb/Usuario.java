@@ -4,24 +4,35 @@
  */
 package sb;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author aldai
  */
 public class Usuario extends javax.swing.JInternalFrame {
 
-   public static String x;
+    public static String x;
+    private int dpi;
+
     public Usuario() {
         initComponents();
         setTitle("DATOS USUARIOS");
         btn_cerrar.setToolTipText("Cerrar la ventana");
-        x="x";
+        x = "x";
         int a = menuPrincipal.desktopPane.getWidth() - this.getWidth();
         int b = menuPrincipal.desktopPane.getHeight() - this.getHeight();
 
         setLocation(a / 2, b / 2);
-        
+
         setVisible(true);
+        cargarTabla();
     }
 
     /**
@@ -43,7 +54,7 @@ public class Usuario extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txtusuario = new javax.swing.JTextField();
+        txtcontraseña = new javax.swing.JTextField();
         txtnombre = new javax.swing.JTextField();
         txtapellido = new javax.swing.JTextField();
         txtdpi = new javax.swing.JTextField();
@@ -99,7 +110,7 @@ public class Usuario extends javax.swing.JInternalFrame {
 
         jLabel2.setBackground(new java.awt.Color(51, 255, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("USUARIO");
+        jLabel2.setText("CONTRASEÑA");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("NOMBRE");
@@ -119,9 +130,9 @@ public class Usuario extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("ESTADO");
 
-        txtusuario.addActionListener(new java.awt.event.ActionListener() {
+        txtcontraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtusuarioActionPerformed(evt);
+                txtcontraseñaActionPerformed(evt);
             }
         });
 
@@ -149,7 +160,7 @@ public class Usuario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Id", "USUARIO", "NOMBRE", "APELLIDO", "DPI", "SUCURSAL", "PUESTO", "ESTADO"
+                "Id", "CONTRASEÑA", "NOMBRE", "APELLIDO", "DPI", "SUCURSAL", "PUESTO", "ESTADO"
             }
         ) {
             Class[] types = new Class [] {
@@ -158,6 +169,11 @@ public class Usuario extends javax.swing.JInternalFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        tblusuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblusuariosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblusuarios);
@@ -195,7 +211,7 @@ public class Usuario extends javax.swing.JInternalFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txtdpi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                                            .addComponent(txtusuario, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtcontraseña, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel7)
                                             .addComponent(txtpuesto))
                                         .addGap(79, 79, 79)
@@ -240,7 +256,7 @@ public class Usuario extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,11 +306,11 @@ public class Usuario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
-        x = null;
+         x = null;
     }//GEN-LAST:event_formInternalFrameClosing
 
     private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
-        x=null;
+        x = null;
         this.dispose();
         // Esto hace que la ventana usuarios se cierre con el boton que dice cerrar
     }//GEN-LAST:event_btn_cerrarActionPerformed
@@ -307,14 +323,72 @@ public class Usuario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtapellidoActionPerformed
 
-    private void txtusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtusuarioActionPerformed
+    private void txtcontraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcontraseñaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtusuarioActionPerformed
+    }//GEN-LAST:event_txtcontraseñaActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
-        // TODO add your handling code here:
+    String contraseña = txtcontraseña.getText(); 
+    String nombre = txtnombre.getText();
+    String apellido = txtapellido.getText();
+    String dpiuser = txtdpi.getText();
+    String puesto = txtpuesto.getText();
+    String idsucursal = txtsucursal.getText();
+    String idestado = txtestado.getText();
+        try {
+            
+            Connection con = Conexion.getConexion();
+             PreparedStatement ps = con.prepareStatement ("INSERT INTO Usuarios (contraseña, nombre, apellido, dpi, puesto,idsucursal,idestado) VALUES (?,?,?,?,?,?,?)");
+        //    ps.setString(1, usuario);
+        //estos de abajo ordenalos en el mismo orden y los campos que hacen falta agregal
+            ps.setString(1, contraseña);
+            ps.setString(2, nombre);
+            ps.setString(3, apellido);
+            ps.setString(4, dpiuser);
+            ps.setString(5, puesto);
+            ps.setString(6, idsucursal);
+            ps.setString(7, idestado);
+          
+                    ps.executeUpdate();
+                                        cargarTabla();
+                    JOptionPane.showMessageDialog(null, "REGISTRO GUARDADO");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+
+        }
     }//GEN-LAST:event_btnguardarActionPerformed
 
+    private void tblusuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblusuariosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblusuariosMouseClicked
+private void cargarTabla() {
+
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblusuarios.getModel();
+        modeloTabla.setRowCount(0);
+        PreparedStatement ps;
+        ResultSet rs;
+        ResultSetMetaData rsmd;
+        int columnas;
+        try {
+            Connection con = Conexion.getConexion();
+            ps = con.prepareStatement("Select * from Usuarios");
+            rs = ps.executeQuery();
+            rsmd = rs.getMetaData();
+            columnas = rsmd.getColumnCount();
+
+            while (rs.next()) {
+                Object[] fila = new Object[columnas];
+                for (int indice = 0; indice < columnas; indice++) {
+                    fila[indice] = rs.getObject(indice + 1);
+                }
+                modeloTabla.addRow(fila);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btmlimpiar;
@@ -335,12 +409,12 @@ public class Usuario extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblusuarios;
     private javax.swing.JTextField txtapellido;
+    private javax.swing.JTextField txtcontraseña;
     private javax.swing.JTextField txtdpi;
     private javax.swing.JTextField txtestado;
     private javax.swing.JTextField txtnombre;
     private javax.swing.JTextField txtpuesto;
     private javax.swing.JTextField txtsucursal;
-    private javax.swing.JTextField txtusuario;
     // End of variables declaration//GEN-END:variables
 
 }
